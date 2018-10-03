@@ -21,4 +21,4 @@ EXPOSE 30005
 EXPOSE 30104
 
 ENTRYPOINT ["./dump1090"]
-CMD ["--net", "--quiet", "--write-json", "/data"]
+CMD ["--net", "--quiet", "--write-json", "/run/dump1090"]

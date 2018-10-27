@@ -46,10 +46,10 @@ First start dump1090-docker and then start docker-piaware.
 docker run --rm -d --link dump1090:beast --name piaware [--env FEEDER_ID=<feeder id>] wnagele/piaware <flightaware user> <flightaware password>
 ```
 
-Setting a FEEDER\_ID is optional, but it's best to have as Flightaware uses it
-to uniquely identify your site. If you don't have a FEEDER\_ID you can find it
-on Flightaware's My ADS-B page listed as "Unique Identifier" after running
-docker-piaware for the first time.
+Setting a **FEEDER\_ID** is optional, but it's best to have as Flightaware uses
+it to uniquely identify your site. If you don't have a **FEEDER\_ID** you can
+find it on Flightaware's My ADS-B page listed as "Unique Identifier" after
+running docker-piaware for the first time.
 [Screenshot](https://github.com/jeanralphaviles/dump1090-docker/raw/master/images/feeder_id.png).
 
 Note, if you're running on a Raspberry Pi or a non-x86 machine, the Piaware
@@ -88,8 +88,15 @@ of [docker-adsbexchange](https://github.com/webmonkey/docker-adsbexchange).
 1. Run [docker-adsbexchange](https://github.com/webmonkey/docker-adsbexchange).
 
    ```shell
-   docker run --rm -d --link dump1090:decoder --name adsb-exchange webmonkey/adsbexchange:latest
+   docker run --rm -d --link dump1090:decoder --name adsb-exchange [--env RECEIVER_PORT=<port>] webmonkey/adsbexchange:latest
    ```
+
+   [docker-adsbexchange](https://github.com/webmonkey/docker-adsbexchange)
+   supports
+   [ADS-B Exchange custom feeds](https://www.adsbexchange.com/how-to-feed/custom-feed-how-to).
+   To feed data to a custom feed, set the **RECEIVER\_PORT** to that of a feed
+   you have claimed. If unset, docker-adsbexchange will feed the default port:
+   30005\.
 
 ## Feeding live flight data to ADSBHub
 

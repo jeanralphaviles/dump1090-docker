@@ -6,20 +6,18 @@ packages.
 
 ## Usage
 
-### Get the Docker image
-
-```shell
-git clone https://github.com/jeanralphaviles/dump1090-docker.git
-cd dump1090-docker
-docker build -t dump1090-docker:latest .
-```
-
 ### Run
 
 Dump1090 needs access to the USB bus to be able to read data from a receiver.
 
 ```shell
-docker run --rm -d --device /dev/bus/usb --name dump1090 dump1090-docker:latest
+docker run --rm -d --device /dev/bus/usb --name dump1090 jraviles/dump1090:latest
+```
+
+### Building the Docker image locally
+
+```shell
+docker build -t jraviles/dump1090:latest .
 ```
 
 ## Reporting data to Flightaware with Piaware
@@ -54,3 +52,30 @@ You can then use the run command from above.
 
 See [docker-piaware](https://github.com/wnagele/docker-piaware) on Github for
 more documentation.
+
+## Maintenance
+
+### Uploading new images to Dockerhub
+
+1. Build and push the new image.
+
+   ```shell
+   # Make sure you have run docker login
+   docker build -t jraviles/dump1090:<arch> .
+   docker push jraviles/dump1090:<arch>
+   ```
+
+2. Build and push a new manifest with
+   [manifest-tool](https://github.com/estesp/manifest-tool).
+
+   ```shell
+   # Install manifest-tool
+   manifest-tool push from-spec manifest-dump1090.yml
+   ```
+
+Supported architectures:
+
+| architecture 	|
+|--------------	|
+| amd64        	|
+| arm64        	|

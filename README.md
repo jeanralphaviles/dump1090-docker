@@ -4,6 +4,8 @@ Run [dump1090-fa](https://github.com/flightaware/dump1090) (Flightaware fork)
 quickly and easily with Docker! No need to worry about installing drivers or
 packages.
 
+[Docker Hub](https://hub.docker.com/r/jraviles/dump1090)
+
 ## Usage
 
 ### Run
@@ -39,7 +41,7 @@ docker-piaware for the first time.
 [Screenshot](https://github.com/jeanralphaviles/dump1090-docker/raw/master/feeder_id.png).
 
 Note, if you're running on a Raspberry Pi or a non-x86 machine, the Piaware
-image from Dockerhub may not work correctly. If Piaware isn't starting you'll
+image from Docker Hub may not work correctly. If Piaware isn't starting you'll
 need to build the image yourself.
 
 ```shell
@@ -55,7 +57,7 @@ more documentation.
 
 ## Maintenance
 
-### Uploading new images to Dockerhub
+### Uploading new images to Docker Hub
 
 1. Build and push the new image.
 

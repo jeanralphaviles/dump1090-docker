@@ -34,10 +34,10 @@ map in real time.
 
 ![Skyview](https://github.com/jeanralphaviles/dump1090-docker/raw/master/images/skyview.png)
 
-## Reporting live flight data to Flightaware with Piaware
+## Feeding live flight data to Flightaware
 
 ADS-B data from dump1090-docker can be
-[uploaded to Flightaware](https://flightaware.com/adsb) with the help of
+[fed to Flightaware](https://flightaware.com/adsb) with the help of
 [docker-piaware](https://github.com/wnagele/docker-piaware).
 
 First start dump1090-docker and then start docker-piaware.
@@ -67,6 +67,28 @@ You can then use the run command from above.
 See [docker-piaware](https://github.com/wnagele/docker-piaware) on Github for
 more documentation.
 
+## Feeding live flight data to ADS-B Exchange
+
+ADS-B data from dump1090-docker can be
+[fed to ADS-B Exchange](https://www.adsbexchange.com/how-to-feed) with the help
+of [docker-adsbexchange](https://github.com/webmonkey/docker-adsbexchange).
+
+1. Ensure dump1090 is running.
+
+1. Fetch docker-adsbexchange and build Docker image.
+
+   ```shell
+   git clone https://github.com/webmonkey/docker-adsbexchange.git
+   cd docker-adsbexchange
+   docker build -t webmonkey/adsbexchange:latest .
+   ```
+
+1. Run docker-adsbexchange.
+
+   ```shell
+   docker run --rm -d --link dump1090:decoder --name adsb-exchange webmonkey/adsbexchange:latest
+   ```
+
 ## Maintenance
 
 ### Uploading new images to Docker Hub
@@ -79,7 +101,7 @@ more documentation.
    docker push jraviles/dump1090:<arch>
    ```
 
-2. Build and push a new manifest with
+1. Build and push a new manifest with
    [manifest-tool](https://github.com/estesp/manifest-tool).
 
    ```shell

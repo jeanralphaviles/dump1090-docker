@@ -1,10 +1,14 @@
 # Dump1090 Flightaware Docker image
 
+[![Docker Build Status](https://img.shields.io/docker/build/jrottenberg/ffmpeg.svg)](https://hub.docker.com/r/jraviles/dump1090/)
+[![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/jeanralphaviles/dump1090-docker)
+
 Run [dump1090-fa](https://github.com/flightaware/dump1090) (Flightaware fork)
 quickly and easily with Docker! No need to worry about installing drivers or
 packages.
 
-[Docker Hub](https://hub.docker.com/r/jraviles/dump1090)
+dump1090-docker on [Docker Hub](https://hub.docker.com/r/jraviles/dump1090)
+:whale:.
 
 ## Usage
 

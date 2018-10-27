@@ -7,18 +7,19 @@ RUN apt update && apt install -y \
   librtlsdr-dev \
   make \
   ncurses-dev \
+  nginx \
   pkg-config
 
 RUN git clone https://github.com/flightaware/dump1090.git /dump1090
 WORKDIR /dump1090
 RUN make
+RUN install ./dump1090 /usr/local/bin
 
-EXPOSE 30001
-EXPOSE 30002
-EXPOSE 30003
-EXPOSE 30004
-EXPOSE 30005
-EXPOSE 30104
+COPY nginx.conf /nginx.conf
+COPY mime.types /mime.types
 
-ENTRYPOINT ["./dump1090"]
-CMD ["--net", "--quiet", "--write-json", "/run/dump1090"]
+COPY run.sh /run.sh
+
+EXPOSE 8080 30001 30002 30003 30004 30005 30104
+
+ENTRYPOINT ["/run.sh"]

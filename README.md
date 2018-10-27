@@ -1,7 +1,7 @@
 # Dump1090 Flightaware Docker image
 
-[![Docker Build Status](https://img.shields.io/docker/build/jrottenberg/ffmpeg.svg)](https://hub.docker.com/r/jraviles/dump1090/)
-[![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/jeanralphaviles/dump1090-docker)
+[![Docker Build Status](https://img.shields.io/docker/build/jraviles/dump1090.svg)](https://hub.docker.com/r/jraviles/dump1090/)
+[![GitHub](https://img.shields.io/github/license/jeanralphaviles/dump1090-docker.svg)](https://github.com/jeanralphaviles/dump1090-docker)
 
 Run [dump1090-fa](https://github.com/flightaware/dump1090) (Flightaware fork)
 quickly and easily with Docker! No need to worry about installing drivers or
@@ -75,7 +75,9 @@ of [docker-adsbexchange](https://github.com/webmonkey/docker-adsbexchange).
 
 1. Ensure dump1090 is running.
 
-1. Fetch docker-adsbexchange and build Docker image.
+1. Fetch
+   [docker-adsbexchange](https://github.com/webmonkey/docker-adsbexchange) and
+   build Docker image.
 
    ```shell
    git clone https://github.com/webmonkey/docker-adsbexchange.git
@@ -83,10 +85,27 @@ of [docker-adsbexchange](https://github.com/webmonkey/docker-adsbexchange).
    docker build -t webmonkey/adsbexchange:latest .
    ```
 
-1. Run docker-adsbexchange.
+1. Run [docker-adsbexchange](https://github.com/webmonkey/docker-adsbexchange).
 
    ```shell
    docker run --rm -d --link dump1090:decoder --name adsb-exchange webmonkey/adsbexchange:latest
+   ```
+
+## Feeding live flight data to ADSBHub
+
+ADS-B data can be [fed to ADSBHub](http://www.adsbhub.org/howtofeed.php) with
+the help of [adsbhub-docker](https://github.com/jeanralphaviles/adsbhub-docker).
+
+1. [Register for an ADSBHub account](http://www.adsbhub.org/register.php).
+
+1. [Register a new ADS-B station](http://www.adsbhub.org/howtofeed.php).
+
+   Follow instructions on "Adding your ADS-B station to ADSBHub."
+
+1. Run [adsbhub-docker](https://github.com/jeanralphaviles/adsbhub-docker).
+
+   ```shell
+   docker run --rm -d --link dump1090 --name adsbhub jraviles/adsbhub:latest
    ```
 
 ## Maintenance

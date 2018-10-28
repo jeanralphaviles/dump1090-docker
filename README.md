@@ -78,7 +78,7 @@ ADS-B data from dump1090-docker can be
 
   1. Ensure dump1090 is running.
 
-  1. Run [docker-piaware](https://github.com/wnagele/docker-piaware)
+  1. Run [docker-piaware](https://github.com/wnagele/docker-piaware).
 
      ```shell
      docker run --rm -d --link dump1090:beast --name piaware [--env FEEDER_ID=<feeder id>] wnagele/piaware <flightaware user> <flightaware password>
@@ -97,13 +97,16 @@ ADS-B data from dump1090-docker can be
 
 * Using docker-compose
 
-  If using docker-compose, you must specify your Flightaware username, password,
-  and optionally your **FEEDER_ID** in
-  [flightaware\_credentials.txt](https://github.com/jeanralphaviles/dump1090-docker/blob/master/flightaware_credentials.txt).
+  1. Start [docker-piaware](https://github.com/wnagele/docker-piaware) and
+     dump1090.
 
-  ```shell
-  docker-compose up -d piaware dump1090
-  ```
+     If using docker-compose, you must specify your Flightaware username,
+     password, and optionally your **FEEDER_ID** in
+     [flightaware\_credentials.txt](https://github.com/jeanralphaviles/dump1090-docker/blob/master/flightaware_credentials.txt).
+   
+     ```shell
+     docker-compose up -d piaware dump1090
+     ```
 
 Setting a **FEEDER\_ID** is optional, but it's best to have as Flightaware uses
 it to uniquely identify your site. If you don't have a **FEEDER\_ID** you can
@@ -143,9 +146,13 @@ of [docker-adsbexchange](https://github.com/webmonkey/docker-adsbexchange).
 
 * Using docker-compose
 
-   ```shell
-   docker-compose up -d adsb-exchange dump1090
-   ```
+  1. Start
+     [docker-adsbexchange](https://github.com/webmonkey/docker-adsbexchange) and
+     dump1090.
+
+     ```shell
+     docker-compose up -d adsb-exchange dump1090
+     ```
 
 [docker-adsbexchange](https://github.com/webmonkey/docker-adsbexchange)
 supports
@@ -168,20 +175,25 @@ the help of [adsbhub-docker](https://github.com/jeanralphaviles/adsbhub-docker).
 
    Follow instructions on "Adding your ADS-B station to ADSBHub."
 
+1. Run [adsbhub-docker](https://github.com/jeanralphaviles/adsbhub-docker).
+
 * Using vanilla Docker
 
   1. Ensure dump1090 is running.
 
-  1. Run [adsbhub-docker](https://github.com/jeanralphaviles/adsbhub-docker).
+  1. Start [adsbhub-docker](https://github.com/jeanralphaviles/adsbhub-docker).
 
      ```shell
      docker run --rm -d --link dump1090 --name adsbhub jraviles/adsbhub:latest
      ```
 * Using docker-compose
 
-   ```shell
-   docker-compose up -d adsbhub dump1090
-   ```
+  1. Start [adsbhub-docker](https://github.com/jeanralphaviles/adsbhub-docker)
+     and dump1090.
+
+     ```shell
+     docker-compose up -d adsbhub dump1090
+     ```
 
 ## Maintenance
 

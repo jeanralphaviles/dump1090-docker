@@ -20,7 +20,7 @@ FROM debian:latest
 RUN apt update && \
     apt install -y \
       libbladerf1 \
-      libncurses5 \
+      libncurses6 \
       librtlsdr0 \
       nginx && \
     rm -rf /var/lib/apt/lists/*

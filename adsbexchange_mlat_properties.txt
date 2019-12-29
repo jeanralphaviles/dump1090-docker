@@ -1,0 +1,7 @@
+# add the geo coordinates of your ADS-B reeiver
+RECEIVER_LATITUDE=**.*****
+RECEIVER_LONGITUDE=**.******
+# meters above sea level
+RECEIVER_ALTITUDE=***
+# identify your receiver with something unique
+RECEIVER_NAME=XXX***XXX

@@ -58,7 +58,7 @@ docker build -t jraviles/dump1090:latest .
 
 ## Skyview
 
-dump1090-docker exposes a webserver on port 8080 serving up Piaware Skyview.
+dump1090-docker exposes a webserver on port 8080 serving up PiAware Skyview.
 Skyview is a web portal for viewing flights your receiver is picking up on a
 map in real time.
 
@@ -123,46 +123,46 @@ more documentation.
 
 ADS-B data from dump1090-docker can be
 [fed to ADS-B Exchange](https://www.adsbexchange.com/how-to-feed) with the help
-of [docker-adsbexchange](https://github.com/webmonkey/docker-adsbexchange).
+of [adsbexchange-docker](https://hub.docker.com/search?q=marcelstoer%2Fadsbexchange&type=image) images.
 
 * Using vanilla Docker
 
   1. Ensure dump1090 is running.
 
-  1. Fetch
-     [docker-adsbexchange](https://github.com/webmonkey/docker-adsbexchange)
-     and build Docker image.
+  1. Run [adsbexchange-docker-feed](https://github.com/marcelstoer/adsbexchange-docker).
 
      ```shell
-     git clone https://github.com/webmonkey/docker-adsbexchange.git
-     cd docker-adsbexchange
-     docker build -t webmonkey/adsbexchange:latest .
+     docker run --rm -d -e "INPUT=decoder:30005" —link dump1090:decoder --name adsbexchange-feed marcelstoer/adsbexchange-docker-feed:latest
      ```
+  1. Run [adsbexchange-docker-mlat](https://github.com/marcelstoer/adsbexchange-docker).
 
-  1. Run [docker-adsbexchange](https://github.com/webmonkey/docker-adsbexchange).
+     **Note**: make sure you replace the dummy values in the command below with your effective values
 
      ```shell
-     docker run --rm -d --link dump1090:decoder --name adsb-exchange [--env RECEIVER_PORT=<port>] webmonkey/adsbexchange:latest
+     docker run --rm -d -e "INPUT=decoder:30005" -e "MLAT_RESULTS=decoder:30104" -e "RECEIVER_LATITUDE=nn.mmmmm" -e "RECEIVER_LONGITUDE=nn.mmmmm" -e "RECEIVER_ALTITUDE=nnnn" -e "RECEIVER_NAME=my-fantastic-ADS-B-receiver" --link dump1090:decoder --name adsbexchange-mlat marcelstoer/adsbexchange-docker-mlat:latest
      ```
 
 * Using docker-compose
 
   1. Start
-     [docker-adsbexchange](https://github.com/webmonkey/docker-adsbexchange) and
+     [adsbexchange-docker](https://github.com/marcelstoer/adsbexchange-docker) containers and
      dump1090.
 
+     If using docker-compose, you must specify your MLAT properties in 
+     [adsbexchange\_mlat\_properties.txt](https://github.com/jeanralphaviles/dump1090-docker/blob/master/adsbexchange_mlat_properties.txt).
+
      ```shell
-     docker-compose up -d adsb-exchange dump1090
+     docker-compose up -d dump1090 adsbexchange-feed adsbexchange-mlat
      ```
 
-[docker-adsbexchange](https://github.com/webmonkey/docker-adsbexchange)
+[adsbexchange-docker](https://github.com/marcelstoer/adsbexchange-docker)
 supports
 [ADS-B Exchange custom feeds](https://www.adsbexchange.com/how-to-feed/custom-feed-how-to).
 To feed data to a custom feed, set the **RECEIVER\_PORT** to that of a feed you
-have claimed. If unset, docker-adsbexchange will feed the default port: 30005\.
+have claimed. If unset, adsbexchange-docker will feed the default port: 30005\.
 To set **RECEIVER_PORT** using docker-compose you must add an
 [environment section](https://docs.docker.com/compose/compose-file/#environment) to
-adsb-exchange's service in
+adsbexchange-feed's service in
 [docker-compose.yml](https://github.com/jeanralphaviles/dump1090-docker/blob/master/docker-compose.yml).
 
 ## Feeding live flight data to ADSBHub

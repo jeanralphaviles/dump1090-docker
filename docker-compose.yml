@@ -17,11 +17,22 @@ services:
       - BEAST_PORT_30005_TCP_ADDR=dump1090
     restart: unless-stopped
 
-  adsb-exchange:
-    build:
-      context: 'https://github.com/webmonkey/docker-adsbexchange.git'
+  adsbexchange-feed:
+    environment:
+      - 'INPUT=decoder:30005'
     links:
-      - dump1090:decoder
+      - 'dump1090:decoder'
+    image: marcelstoer/adsbexchange-docker-feed
+    restart: unless-stopped
+
+  adsbexchange-mlat:
+    env_file: 'adsbexchange_mlat_properties.txt'
+    environment:
+      - 'INPUT=decoder:30005'
+      - 'MLAT_RESULTS=decoder:30104'
+    links:
+      - 'dump1090:decoder'
+    image: marcelstoer/adsbexchange-docker-mlat
     restart: unless-stopped
 
   adsbhub:

@@ -13,6 +13,7 @@ RUN apt update && \
 
 RUN git clone https://github.com/flightaware/dump1090.git /dump1090
 WORKDIR /dump1090
+RUN git checkout 089684e20f4d44f328ca9b8242b2da33afc8662b
 RUN make
 
 FROM debian:latest

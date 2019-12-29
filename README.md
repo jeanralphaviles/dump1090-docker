@@ -12,11 +12,11 @@ flight tracking services, as well as a
 [docker-compose](https://docs.docker.com/compose/overview) file to simplify
 deployment.
 
-| Supported Flight Tracking Services             	|
-|------------------------------------------------	|
-| [Flightaware](https://flightaware.com/adsb)    	|
-| [ADS-B Exchange](https://www.adsbexchange.com) 	|
-| [ADSBHub](http://www.adsbhub.org)              	|
+| Supported Flight Tracking Services               |
+|------------------------------------------------  |
+| [Flightaware](https://flightaware.com/adsb)      |
+| [ADS-B Exchange](https://www.adsbexchange.com)   |
+| [ADSBHub](http://www.adsbhub.org)                |
 
 Visit dump1090-docker on
 [Docker Hub](https://hub.docker.com/r/jraviles/dump1090) :whale:.
@@ -83,6 +83,7 @@ ADS-B data from dump1090-docker can be
      ```shell
      docker run --rm -d --link dump1090:beast --name piaware [--env FEEDER_ID=<feeder id>] wnagele/piaware <flightaware user> <flightaware password>
      ```
+
      Note, if you're running on a Raspberry Pi or a non-x86 machine, the
      Piaware image from Docker Hub may not work correctly. If Piaware isn't
      starting you'll need to build the image yourself.
@@ -103,7 +104,7 @@ ADS-B data from dump1090-docker can be
      If using docker-compose, you must specify your Flightaware username,
      password, and optionally your **FEEDER_ID** in
      [flightaware\_credentials.txt](https://github.com/jeanralphaviles/dump1090-docker/blob/master/flightaware_credentials.txt).
-   
+
      ```shell
      docker-compose up -d piaware dump1090
      ```
@@ -186,6 +187,7 @@ the help of [adsbhub-docker](https://github.com/jeanralphaviles/adsbhub-docker).
      ```shell
      docker run --rm -d --link dump1090 --name adsbhub jraviles/adsbhub:latest
      ```
+
 * Using docker-compose
 
   1. Start [adsbhub-docker](https://github.com/jeanralphaviles/adsbhub-docker)
@@ -199,25 +201,22 @@ the help of [adsbhub-docker](https://github.com/jeanralphaviles/adsbhub-docker).
 
 ### Uploading new images to Docker Hub
 
+1. Ensure that Docker >= 19.03 is installed to support
+   [buildx](https://docs.docker.com/buildx/working-with-buildx/).
+
 1. Build and push the new image.
 
    ```shell
-   # Make sure you have run docker login
-   docker build -t jraviles/dump1090:<arch> .
-   docker push jraviles/dump1090:<arch>
-   ```
-
-1. Build and push a new manifest with
-   [manifest-tool](https://github.com/estesp/manifest-tool).
-
-   ```shell
-   # Install manifest-tool
-   manifest-tool push from-spec manifest-dump1090.yml
+   # Ensure you have run 'docker login'
+   export DOCKER_CLI_EXPERIMENTAL=enabled
+   docker buildx create --use --name my-builder
+   docker buildx build --push --platform linux/amd64,linux/arm64,linux/arm/v7 -t jraviles/dump1090:latest .
    ```
 
 Supported architectures:
 
-| architecture 	|
-|--------------	|
-| amd64        	|
-| arm64        	|
+| architecture  |
+| ------------  |
+| linux/amd64   |
+| linux/arm64   |
+| linux/armv7   |

@@ -81,7 +81,8 @@ ADS-B data from dump1090-docker can be
   1. Run [docker-piaware](https://github.com/wnagele/docker-piaware).
 
      ```shell
-     docker run --rm -d --link dump1090:beast --name piaware [--env FEEDER_ID=<feeder id>] wnagele/piaware <flightaware user> <flightaware password>
+     docker run --rm -d --link dump1090:beast --name piaware \
+     [--env FEEDER_ID=<feeder id>] wnagele/piaware <flightaware user> <flightaware password>
      ```
 
      Note, if you're running on a Raspberry Pi or a non-x86 machine, the
@@ -132,14 +133,29 @@ of [adsbexchange-docker](https://hub.docker.com/search?q=marcelstoer%2Fadsbexcha
   1. Run [adsbexchange-docker-feed](https://github.com/marcelstoer/adsbexchange-docker).
 
      ```shell
-     docker run --rm -d -e "INPUT=decoder:30005" —link dump1090:decoder --name adsbexchange-feed marcelstoer/adsbexchange-docker-feed:latest
+     docker run --rm -d -e "INPUT=decoder:30005" --link dump1090:decoder \
+     --name adsbexchange-feed marcelstoer/adsbexchange-docker-feed:latest
      ```
-  1. Run [adsbexchange-docker-mlat](https://github.com/marcelstoer/adsbexchange-docker).
 
-     **Note**: make sure you replace the dummy values in the command below with your effective values
+  1. Optionally run [adsbexchange-docker-mlat](https://github.com/marcelstoer/adsbexchange-docker).
+
+     Notes:
+
+     1. make sure you replace the dummy values in the command below with your
+     effective values
+     1. ADS-B Exchange ask you to enter the receiver GPS coordinates for
+     [MLAT](https://en.wikipedia.org/wiki/Multilateration) with 5-digit precision
+     1. Even though you are giving away the exact receiver position ASD-B
+     Exchange will never disclose this information. To protect the privacy of
+     the feeders, the receiver locations displayed on their maps (e.g. for
+     [Central Europe](https://adsbexchange.com/coverage-4B/)) are approximate
+     only.
 
      ```shell
-     docker run --rm -d -e "INPUT=decoder:30005" -e "MLAT_RESULTS=decoder:30104" -e "RECEIVER_LATITUDE=nn.mmmmm" -e "RECEIVER_LONGITUDE=nn.mmmmm" -e "RECEIVER_ALTITUDE=nnnn" -e "RECEIVER_NAME=my-fantastic-ADS-B-receiver" --link dump1090:decoder --name adsbexchange-mlat marcelstoer/adsbexchange-docker-mlat:latest
+     docker run --rm -d -e "INPUT=decoder:30005" -e "MLAT_RESULTS=decoder:30104" \
+     -e "RECEIVER_LATITUDE=nn.mmmmm" -e "RECEIVER_LONGITUDE=nn.mmmmm" \
+     -e "RECEIVER_ALTITUDE=nnnn" -e "RECEIVER_NAME=my-fantastic-ADS-B-receiver" \
+     --link dump1090:decoder --name adsbexchange-mlat marcelstoer/adsbexchange-docker-mlat:latest
      ```
 
 * Using docker-compose
@@ -148,7 +164,7 @@ of [adsbexchange-docker](https://hub.docker.com/search?q=marcelstoer%2Fadsbexcha
      [adsbexchange-docker](https://github.com/marcelstoer/adsbexchange-docker) containers and
      dump1090.
 
-     If using docker-compose, you must specify your MLAT properties in 
+     If using docker-compose, you must specify your MLAT properties in
      [adsbexchange\_mlat\_properties.txt](https://github.com/jeanralphaviles/dump1090-docker/blob/master/adsbexchange_mlat_properties.txt).
 
      ```shell

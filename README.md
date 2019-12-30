@@ -236,3 +236,8 @@ Supported architectures:
 | linux/amd64   |
 | linux/arm64   |
 | linux/armv7   |
+
+## Contributors
+
+* [Jean-Ralph Aviles](https://github.com/jeanralphaviles)
+* [Marcel Stör](https://github.com/marcelstoer)

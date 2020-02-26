@@ -228,6 +228,7 @@ the help of [adsbhub-docker](https://github.com/jeanralphaviles/adsbhub-docker).
    export DOCKER_CLI_EXPERIMENTAL=enabled
    docker buildx create --use --name my-builder
    docker buildx build --push --platform linux/amd64,linux/arm64,linux/arm/v7 -t jraviles/dump1090:latest .
+   docker buildx rm my-builder
    ```
 
 Supported architectures:

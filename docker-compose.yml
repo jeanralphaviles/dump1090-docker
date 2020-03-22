@@ -10,6 +10,7 @@ services:
     restart: unless-stopped
 
   piaware:
+    # wnagele/piaware image exists on DockerHub, but doesn't support arm/v7.
     build:
      context: 'https://github.com/wnagele/docker-piaware.git'
     env_file: 'flightaware_credentials.txt'

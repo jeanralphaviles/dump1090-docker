@@ -125,20 +125,20 @@ more documentation.
 
 ADS-B data from dump1090-docker can be
 [fed to ADS-B Exchange](https://www.adsbexchange.com/how-to-feed) with the help
-of [adsbexchange-docker](https://hub.docker.com/search?q=marcelstoer%2Fadsbexchange&type=image) images.
+of [docker-adsbexchange](https://hub.docker.com/search?q=marcelstoer%2Fadsbexchange&type=image) images.
 
 * Using vanilla Docker
 
   1. Ensure dump1090 is running.
 
-  1. Run [adsbexchange-docker-feed](https://github.com/marcelstoer/adsbexchange-docker).
+  1. Run [adsbexchange-feed](https://github.com/marcelstoer/docker-adsbexchange).
 
      ```shell
      docker run --rm -d -e "INPUT=decoder:30005" --link dump1090:decoder \
-     --name adsbexchange-feed marcelstoer/adsbexchange-docker-feed:latest
+     --name adsbexchange-feed marcelstoer/adsbexchange-feed:latest
      ```
 
-  1. Optionally run [adsbexchange-docker-mlat](https://github.com/marcelstoer/adsbexchange-docker).
+  1. Optionally run [adsbexchange-mlat](https://github.com/marcelstoer/docker-adsbexchange).
 
      Notes:
 
@@ -156,13 +156,13 @@ of [adsbexchange-docker](https://hub.docker.com/search?q=marcelstoer%2Fadsbexcha
      docker run --rm -d -e "INPUT=decoder:30005" -e "MLAT_RESULTS=decoder:30104" \
      -e "RECEIVER_LATITUDE=nn.mmmmm" -e "RECEIVER_LONGITUDE=nn.mmmmm" \
      -e "RECEIVER_ALTITUDE=nnnn" -e "RECEIVER_NAME=my-fantastic-ADS-B-receiver" \
-     --link dump1090:decoder --name adsbexchange-mlat marcelstoer/adsbexchange-docker-mlat:latest
+     --link dump1090:decoder --name adsbexchange-mlat marcelstoer/adsbexchange-mlat:latest
      ```
 
 * Using docker-compose
 
   1. Start
-     [adsbexchange-docker](https://github.com/marcelstoer/adsbexchange-docker) containers and
+     [docker-adsbexchange](https://github.com/marcelstoer/docker-adsbexchange) containers and
      dump1090.
 
      If using docker-compose, you must specify your MLAT properties in
@@ -172,7 +172,7 @@ of [adsbexchange-docker](https://hub.docker.com/search?q=marcelstoer%2Fadsbexcha
      docker-compose up -d dump1090 adsbexchange-feed adsbexchange-mlat
      ```
 
-[adsbexchange-docker](https://github.com/marcelstoer/adsbexchange-docker)
+[docker-adsbexchange](https://github.com/marcelstoer/docker-adsbexchange)
 supports
 [ADS-B Exchange custom feeds](https://www.adsbexchange.com/how-to-feed/custom-feed-how-to).
 To feed data to a custom feed, set the **RECEIVER\_PORT** to that of a feed you

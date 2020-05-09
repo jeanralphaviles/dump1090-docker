@@ -23,7 +23,7 @@ services:
       - 'INPUT=decoder:30005'
     links:
       - 'dump1090:decoder'
-    image: marcelstoer/adsbexchange-docker-feed
+    image: marcelstoer/adsbexchange-feed
     restart: unless-stopped
 
   adsbexchange-mlat:
@@ -33,7 +33,7 @@ services:
       - 'MLAT_RESULTS=decoder:30104'
     links:
       - 'dump1090:decoder'
-    image: marcelstoer/adsbexchange-docker-mlat
+    image: marcelstoer/adsbexchange-mlat
     restart: unless-stopped
 
   adsbhub:

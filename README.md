@@ -32,7 +32,7 @@ receiver.
 * Using vanilla Docker
 
   ```shell
-  docker run --rm -d --device /dev/bus/usb --name dump1090 -p 8080:8080 jraviles/dump1090:latest
+  docker run --rm -d --device /dev/bus/usb --env-file flightaware_credentials.txt --name dump1090 -p 8080:8080 jraviles/dump1090:latest
   ```
 
 * Using docker-compose

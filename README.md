@@ -48,7 +48,7 @@ docker-compose up -d
 ```
 
 To feed data to Flightaware you first must specify your Flightaware username,
-password, and optionally your **FEEDER_ID** in
+password, and optionally your **FEEDER_ID** after claiming on Flightaware in
 [flightaware\_credentials.txt](https://github.com/jeanralphaviles/dump1090-docker/blob/master/flightaware_credentials.txt).
 
 ### Building the Docker image locally
@@ -79,12 +79,17 @@ ADS-B data from dump1090-docker can be
 
   1. Ensure dump1090 is running.
 
-  1. Run [docker-piaware](https://github.com/wnagele/docker-piaware).
+  1. Run [docker-piaware](https://github.com/wnagele/docker-piaware). To feed
+  data to Flightaware you first must specify your Flightaware username,
+  password, and optionally your **FEEDER_ID** in
+  [flightaware\_credentials.txt](https://github.com/jeanralphaviles/dump1090-docker/blob/master/flightaware_credentials.txt).
 
      ```shell
      docker run --rm -d --link dump1090:beast --name piaware \
-     [--env FEEDER_ID=<feeder id>] wnagele/piaware <flightaware user> <flightaware password>
+     --env-file flightaware_credentials.txt wnagele/piaware
      ```
+     
+
 
      Note, if you're running on a Raspberry Pi or a non-x86 machine, the
      Piaware image from Docker Hub may not work correctly. If Piaware isn't

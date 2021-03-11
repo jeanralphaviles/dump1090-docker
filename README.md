@@ -1,6 +1,7 @@
 # Dump1090 Flightaware Docker image
 
-[![Docker Build Status](https://img.shields.io/docker/build/jraviles/dump1090.svg)](https://hub.docker.com/r/jraviles/dump1090/)
+[![Docker Automated build](https://img.shields.io/docker/automated/jraviles/dump1090)](https://hub.docker.com/r/jraviles/dump1090/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/jraviles/dump1090)](https://hub.docker.com/r/jraviles/dump1090/)
 [![Build Status](https://travis-ci.com/jeanralphaviles/dump1090-docker.svg?branch=master)](https://travis-ci.com/jeanralphaviles/dump1090-docker)
 [![GitHub](https://img.shields.io/github/license/jeanralphaviles/dump1090-docker.svg)](https://github.com/jeanralphaviles/dump1090-docker)
 

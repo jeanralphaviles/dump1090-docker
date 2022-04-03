@@ -88,7 +88,7 @@ ADS-B data from dump1090-docker can be
 
      ```shell
      docker run --rm -d --link dump1090:beast --name piaware \
-     --env-file flightaware_credentials.txt wnagele/piaware
+         --env-file flightaware_credentials.txt wnagele/piaware
      ```
      
 
@@ -142,7 +142,7 @@ of [docker-adsbexchange](https://hub.docker.com/search?q=marcelstoer%2Fadsbexcha
 
      ```shell
      docker run --rm -d -e "INPUT=decoder:30005" --link dump1090:decoder \
-     --name adsbexchange-feed marcelstoer/adsbexchange-feed:latest
+         --name adsbexchange-feed marcelstoer/adsbexchange-feed:latest
      ```
 
   1. Optionally run [adsbexchange-mlat](https://github.com/marcelstoer/docker-adsbexchange).
@@ -161,9 +161,9 @@ of [docker-adsbexchange](https://hub.docker.com/search?q=marcelstoer%2Fadsbexcha
 
      ```shell
      docker run --rm -d -e "INPUT=decoder:30005" -e "MLAT_RESULTS=decoder:30104" \
-     -e "RECEIVER_LATITUDE=nn.mmmmm" -e "RECEIVER_LONGITUDE=nn.mmmmm" \
-     -e "RECEIVER_ALTITUDE=nnnn" -e "RECEIVER_NAME=my-fantastic-ADS-B-receiver" \
-     --link dump1090:decoder --name adsbexchange-mlat marcelstoer/adsbexchange-mlat:latest
+         -e "RECEIVER_LATITUDE=nn.mmmmm" -e "RECEIVER_LONGITUDE=nn.mmmmm" \
+         -e "RECEIVER_ALTITUDE=nnnn" -e "RECEIVER_NAME=my-fantastic-ADS-B-receiver" \
+         --link dump1090:decoder --name adsbexchange-mlat marcelstoer/adsbexchange-mlat:latest
      ```
 
 * Using docker-compose

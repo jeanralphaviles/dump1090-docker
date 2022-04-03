@@ -2,25 +2,30 @@ FROM debian:latest as builder
 
 RUN apt update && \
     apt install -y \
-      gcc \
+      build-essential \
+      debhelper \
+      fakeroot \
       git \
       libbladerf-dev \
+      libhackrf-dev \
+      liblimesuite-dev \
+      libncurses-dev \
       librtlsdr-dev \
-      make \
-      ncurses-dev \
       pkg-config && \
     rm -rf /var/lib/apt/lists/*
 
 RUN git clone https://github.com/flightaware/dump1090.git /dump1090
 WORKDIR /dump1090
-RUN git checkout 089684e20f4d44f328ca9b8242b2da33afc8662b
+RUN git checkout 849a3b73299b4f56620ab16a6b62d88e17f35608
 RUN make
 
 FROM debian:latest
 
 RUN apt update && \
     apt install -y \
-      libbladerf1 \
+      libbladerf2 \
+      libhackrf0 \
+      liblimesuite20.10-1 \
       libncurses6 \
       librtlsdr0 \
       nginx && \

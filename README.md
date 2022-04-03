@@ -50,7 +50,8 @@ docker-compose up -d
 ```
 
 To feed data to Flightaware you first must specify your Flightaware username,
-password, and optionally your **FEEDER_ID** after claiming on Flightaware in
+password, and optionally your **FEEDER_ID**
+[(after claiming it on Flightaware)](https://flightaware.com/adsb/piaware/claim) in
 [flightaware\_credentials.txt](https://github.com/jeanralphaviles/dump1090-docker/blob/master/flightaware_credentials.txt).
 
 ### Building the Docker image locally
@@ -120,10 +121,10 @@ ADS-B data from dump1090-docker can be
 
 Setting a **FEEDER\_ID** is optional, but it's best to have as Flightaware uses
 it to uniquely identify your site. If you don't have a **FEEDER\_ID** you can
-find it on Flightaware's [My ADS-B
-page](https://flightaware.com/adsb/stats/user/) listed as "Unique Identifier"
-after running docker-piaware for the first time.
-[Screenshot](https://github.com/jeanralphaviles/dump1090-docker/raw/master/images/feeder_id.png).
+find it on Flightaware's
+[Claim page](https://flightaware.com/adsb/piaware/claim) under "Linked PiAware
+Receivers" after running docker-piaware for the first time. There might be
+multiple, just pick one.
 
 See [docker-piaware](https://github.com/wnagele/docker-piaware) on Github for
 more documentation.

@@ -1,4 +1,8 @@
-FROM debian:latest as builder
+ARG DUMP1090_FA_GIT_TAG="v8.2"
+ARG DEBIAN_VERSION=bullseye-slim
+
+FROM debian:$DEBIAN_VERSION as builder
+ARG DUMP1090_FA_GIT_TAG
 
 RUN apt update && \
     apt install -y \
@@ -14,12 +18,11 @@ RUN apt update && \
       pkg-config && \
     rm -rf /var/lib/apt/lists/*
 
-RUN git clone https://github.com/flightaware/dump1090.git /dump1090
+RUN git clone -b $DUMP1090_FA_GIT_TAG https://github.com/flightaware/dump1090.git /dump1090
 WORKDIR /dump1090
-RUN git checkout 849a3b73299b4f56620ab16a6b62d88e17f35608
 RUN make
 
-FROM debian:latest
+FROM debian:$DEBIAN_VERSION
 
 RUN apt update && \
     apt install -y \

@@ -2,12 +2,19 @@ version: '3'
 
 services:
   dump1090:
-    image: jraviles/dump1090
+    image: ${DUMP1090_DOCKER_REPO}
     ports:
       - 8080:8080/tcp
     devices:
       - /dev/bus/usb
     restart: unless-stopped
+
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        DUMP1090_DOCKER_REPO: ${DUMP1090_DOCKER_REPO}
+        DUMP1090_FA_GIT_TAG: ${DUMP1090_FA_GIT_TAG}
 
   piaware:
     # wnagele/piaware image exists on DockerHub, but doesn't support arm/v7.

@@ -1,4 +1,4 @@
-FROM debian:latest as builder
+FROM ubuntu:22.04 as builder
 
 RUN apt update && \
     apt install -y \
@@ -16,15 +16,16 @@ RUN apt update && \
 
 RUN git clone https://github.com/flightaware/dump1090.git /dump1090
 WORKDIR /dump1090
-RUN git checkout 849a3b73299b4f56620ab16a6b62d88e17f35608
+#RUN git checkout 849a3b73299b4f56620ab16a6b62d88e17f35608
 RUN make
 
-FROM debian:latest
+From ubuntu:22.04
 
 RUN apt update && \
     apt install -y \
       libbladerf2 \
       libhackrf0 \
+      #liblimesuite-dev \
       liblimesuite20.10-1 \
       libncurses6 \
       librtlsdr0 \

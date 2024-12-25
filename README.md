@@ -1,8 +1,7 @@
 # Dump1090 Flightaware Docker image
 
-[![Docker Automated build](https://img.shields.io/docker/automated/jraviles/dump1090)](https://hub.docker.com/r/jraviles/dump1090/)
+[![Deploy](https://github.com/jeanralphaviles/dump1090-docker/actions/workflows/deploy.yml/badge.svg)](https://github.com/jeanralphaviles/dump1090-docker/actions/workflows/deploy.yml)
 [![Docker Pulls](https://img.shields.io/docker/pulls/jraviles/dump1090)](https://hub.docker.com/r/jraviles/dump1090/)
-[![Build Status](https://travis-ci.com/jeanralphaviles/dump1090-docker.svg?branch=master)](https://travis-ci.com/jeanralphaviles/dump1090-docker)
 [![GitHub](https://img.shields.io/github/license/jeanralphaviles/dump1090-docker.svg)](https://github.com/jeanralphaviles/dump1090-docker)
 
 Run [dump1090-fa](https://github.com/flightaware/dump1090) (Flightaware fork)
@@ -22,7 +21,6 @@ deployment.
 
 Visit dump1090-docker on
 [Docker Hub](https://hub.docker.com/r/jraviles/dump1090) :whale: or [Github](https://github.com/jeanralphaviles/dump1090-docker/).
-
 
 ## Usage
 
@@ -51,7 +49,8 @@ docker-compose up -d
 
 To feed data to Flightaware you first must specify your Flightaware username,
 password, and optionally your **FEEDER_ID**
-[(after claiming it on Flightaware)](https://flightaware.com/adsb/piaware/claim) in
+[(after claiming it on Flightaware)](https://flightaware.com/adsb/piaware/claim)
+in
 [flightaware\_credentials.txt](https://github.com/jeanralphaviles/dump1090-docker/blob/master/flightaware_credentials.txt).
 
 ### Building the Docker image locally
@@ -91,8 +90,6 @@ ADS-B data from dump1090-docker can be
      docker run --rm -d --link dump1090:beast --name piaware \
          --env-file flightaware_credentials.txt wnagele/piaware
      ```
-     
-
 
      Note, if you're running on a Raspberry Pi or a non-x86 machine, the
      Piaware image from Docker Hub may not work correctly. If Piaware isn't
@@ -133,7 +130,9 @@ more documentation.
 
 ADS-B data from dump1090-docker can be
 [fed to ADS-B Exchange](https://www.adsbexchange.com/how-to-feed) with the help
-of [docker-adsbexchange](https://hub.docker.com/search?q=marcelstoer%2Fadsbexchange&type=image) images.
+of
+[docker-adsbexchange](https://hub.docker.com/search?q=marcelstoer%2Fadsbexchange&type=image)
+images.
 
 * Using vanilla Docker
 
@@ -161,17 +160,23 @@ of [docker-adsbexchange](https://hub.docker.com/search?q=marcelstoer%2Fadsbexcha
      only.
 
      ```shell
-     docker run --rm -d -e "INPUT=decoder:30005" -e "MLAT_RESULTS=decoder:30104" \
-         -e "RECEIVER_LATITUDE=nn.mmmmm" -e "RECEIVER_LONGITUDE=nn.mmmmm" \
-         -e "RECEIVER_ALTITUDE=nnnn" -e "RECEIVER_NAME=my-fantastic-ADS-B-receiver" \
-         --link dump1090:decoder --name adsbexchange-mlat marcelstoer/adsbexchange-mlat:latest
+     docker run --rm -d \
+         -e "INPUT=decoder:30005" \
+         -e "MLAT_RESULTS=decoder:30104" \
+         -e "RECEIVER_LATITUDE=nn.mmmmm" \
+         -e "RECEIVER_LONGITUDE=nn.mmmmm" \
+         -e "RECEIVER_ALTITUDE=nnnn" \
+         -e "RECEIVER_NAME=my-fantastic-ADS-B-receiver" \
+         --link dump1090:decoder \
+         --name adsbexchange-mlat \
+         marcelstoer/adsbexchange-mlat:latest
      ```
 
 * Using docker-compose
 
   1. Start
-     [docker-adsbexchange](https://github.com/marcelstoer/docker-adsbexchange) containers and
-     dump1090.
+     [docker-adsbexchange](https://github.com/marcelstoer/docker-adsbexchange)
+     containers and dump1090.
 
      If using docker-compose, you must specify your MLAT properties in
      [adsbexchange\_mlat\_properties.txt](https://github.com/jeanralphaviles/dump1090-docker/blob/master/adsbexchange_mlat_properties.txt).
@@ -183,11 +188,11 @@ of [docker-adsbexchange](https://hub.docker.com/search?q=marcelstoer%2Fadsbexcha
 [docker-adsbexchange](https://github.com/marcelstoer/docker-adsbexchange)
 supports
 [ADS-B Exchange custom feeds](https://www.adsbexchange.com/how-to-feed/custom-feed-how-to).
-To feed data to a custom feed, set the **RECEIVER\_PORT** to that of a feed you
-have claimed. If unset, adsbexchange-docker will feed the default port: 30005\.
+To feed data to a custom feed, set the **RECEIVER_PORT** to that of a feed you
+have claimed. If unset, adsbexchange-docker will feed the default port: 30005.
 To set **RECEIVER_PORT** using docker-compose you must add an
-[environment section](https://docs.docker.com/compose/compose-file/#environment) to
-adsbexchange-feed's service in
+[environment section](https://docs.docker.com/compose/compose-file/#environment)
+to adsbexchange-feed's service in
 [docker-compose.yml](https://github.com/jeanralphaviles/dump1090-docker/blob/master/docker-compose.yml).
 
 ## Feeding live flight data to ADSBHub
@@ -235,7 +240,8 @@ the help of [adsbhub-docker](https://github.com/jeanralphaviles/adsbhub-docker).
    # Ensure you have run 'docker login'
    export DOCKER_CLI_EXPERIMENTAL=enabled
    docker buildx create --use --name my-builder
-   docker buildx build --push --platform linux/amd64,linux/arm64,linux/arm/v7 -t jraviles/dump1090:latest .
+   docker buildx build --push --platform linux/amd64,linux/arm64,linux/arm/v7 \
+       -t jraviles/dump1090:latest .
    docker buildx rm my-builder
    ```
 

@@ -1,4 +1,4 @@
-FROM debian:latest as builder
+FROM debian:latest AS builder
 
 RUN apt update && \
     apt install -y \
@@ -11,12 +11,13 @@ RUN apt update && \
       liblimesuite-dev \
       libncurses-dev \
       librtlsdr-dev \
+      libsoapysdr-dev \
       pkg-config && \
     rm -rf /var/lib/apt/lists/*
 
 RUN git clone https://github.com/flightaware/dump1090.git /dump1090
 WORKDIR /dump1090
-RUN git checkout 849a3b73299b4f56620ab16a6b62d88e17f35608
+RUN git checkout v9.0
 RUN make
 
 FROM debian:latest
@@ -25,9 +26,10 @@ RUN apt update && \
     apt install -y \
       libbladerf2 \
       libhackrf0 \
-      liblimesuite20.10-1 \
+      liblimesuite22.09-1 \
       libncurses6 \
       librtlsdr0 \
+      libsoapysdr0.8 \
       nginx && \
     rm -rf /var/lib/apt/lists/*
 

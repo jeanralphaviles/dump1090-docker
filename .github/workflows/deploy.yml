@@ -10,8 +10,9 @@ jobs:
   docker-build-push:
     runs-on: ubuntu-latest
     permissions:
-      id-token: write
       attestations: write
+      id-token: write
+      packages: write
     steps:
       - name: Login to Docker Hub
         uses: docker/login-action@v3
@@ -19,12 +20,19 @@ jobs:
           registry: docker.io
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Login to Github Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@v5
         with:
           images: |
             jraviles/dump1090
+            ghcr.io/jeanralphaviles/dump1090
       - name: Setup QEMU
         uses: docker/setup-qemu-action@v3
       - name: Setup Docker Buildx
@@ -41,10 +49,16 @@ jobs:
           platforms: linux/amd64,linux/arm64,linux/arm/v7
           push: true
           labels: ${{ steps.meta.outputs.labels }}
-          tags: jraviles/dump1090:latest
+          tags: jraviles/dump1090:latest,ghcr.io/jeanralphaviles/dump1090:latest
       - name: Generate Artifact Attestation for Docker Hub
         uses: actions/attest-build-provenance@v2
         with:
           subject-name: docker.io/jraviles/dump1090
+          subject-digest: ${{ steps.push.outputs.digest }}
+          push-to-registry: true
+      - name: Generate Artifact Attestation for Github Container Registry
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-name: ghcr.io/jeanralphaviles/dump1090
           subject-digest: ${{ steps.push.outputs.digest }}
           push-to-registry: true
